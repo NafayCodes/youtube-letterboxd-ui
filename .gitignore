@@ -43,3 +43,12 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.dart_tool/
+.vscode/
+build/
+ios/Flutter/Generated*
+android/local.properties
+macos/Flutter/ephemeral/
+linux/flutter/generated_*
+windows/flutter/generated_*
