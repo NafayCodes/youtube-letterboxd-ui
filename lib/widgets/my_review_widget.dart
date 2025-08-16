@@ -3,23 +3,23 @@ import 'package:flutter/material.dart';
 // "working stiffs.\n\nnot sure i've ever mentioned this before but i have a very personal fear of not... feeling... correctly. like enormously important things are happening around you in a matter-of-fact, dissociative way that you can understand the significance of but you can't shake.."
 class MyReviewWidget extends StatelessWidget {
   final String profilePictureUrl;
-  final String movieName;
-  final String releaseYear;
+  final String? movieName;
+  final String? releaseYear;
   final String username;
   final String review;
   final double rating;
   final int comments;
-  final String thumbnailUrl;
+  final String? thumbnailUrl;
   const MyReviewWidget({
     super.key,
     required this.profilePictureUrl,
-    required this.movieName,
-    required this.releaseYear,
+    this.movieName,
+    this.releaseYear,
     required this.username,
     required this.review,
     required this.rating,
     required this.comments,
-    required this.thumbnailUrl,
+    this.thumbnailUrl,
   });
 
   @override
@@ -48,33 +48,35 @@ class MyReviewWidget extends StatelessWidget {
           SizedBox(width: 10),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
+              padding: const EdgeInsets.symmetric(vertical: 4),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  RichText(
-                    text: TextSpan(
-                      text: "$movieName ",
-                      style: TextStyle(
-                        fontSize: 10,
-                        fontFamily: "OpenSans",
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-                      children: [
-                        TextSpan(
-                          text: releaseYear,
-                          style: TextStyle(
-                            color: Colors.white.withValues(alpha: 0.5),
-                            fontWeight: FontWeight.w600,
-                            fontFamily: "OpenSans",
-                            fontSize: 6,
-                          ),
+                  if (movieName != null && releaseYear != null)
+                    RichText(
+                      text: TextSpan(
+                        text: "$movieName ",
+                        style: TextStyle(
+                          fontSize: 10,
+                          fontFamily: "OpenSans",
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
                         ),
-                      ],
+                        children: [
+                          TextSpan(
+                            text: releaseYear,
+                            style: TextStyle(
+                              color: Colors.white.withValues(alpha: 0.5),
+                              fontWeight: FontWeight.w600,
+                              fontFamily: "OpenSans",
+                              fontSize: 6,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(height: 2),
+                  if (movieName != null && releaseYear != null)
+                    SizedBox(height: 2),
                   Row(
                     children: [
                       RichText(
@@ -145,22 +147,23 @@ class MyReviewWidget extends StatelessWidget {
             ),
           ),
           SizedBox(width: 10),
-          ClipRRect(
-            borderRadius: BorderRadiusGeometry.circular(7),
-            child: Image.network(
-              thumbnailUrl,
-              width: 57,
-              height: 93,
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) return child;
-                return const CircularProgressIndicator();
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return const Icon(Icons.error);
-              },
+          if (thumbnailUrl != null)
+            ClipRRect(
+              borderRadius: BorderRadiusGeometry.circular(7),
+              child: Image.network(
+                thumbnailUrl!,
+                width: 57,
+                height: 93,
+                fit: BoxFit.cover,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const CircularProgressIndicator();
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Icon(Icons.error);
+                },
+              ),
             ),
-          ),
         ],
       ),
     );
