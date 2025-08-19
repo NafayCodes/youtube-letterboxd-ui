@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_letterboxd_ui/screens/boarding_screen.dart';
+import 'package:youtube_letterboxd_ui/screens/review_screen.dart';
 import 'package:youtube_letterboxd_ui/services/app_theme.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      home: const BoardingScreen(),
+      home: const ReviewScreen(),
     );
   }
 }
