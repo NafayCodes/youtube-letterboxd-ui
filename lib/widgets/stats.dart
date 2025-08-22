@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class Stats extends StatelessWidget {
-  final int star0;
   final int star1;
   final int star2;
   final int star3;
@@ -10,7 +9,6 @@ class Stats extends StatelessWidget {
   final int totalReviews;
   const Stats({
     super.key,
-    required this.star0,
     required this.star1,
     required this.star2,
     required this.star3,
@@ -21,112 +19,74 @@ class Stats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.end,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-              right: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
+    return IntrinsicWidth(
+      child: Column(
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              RatingBox(rating: star1, totalReviews: totalReviews),
+              RatingBox(rating: star2, totalReviews: totalReviews),
+              RatingBox(rating: star3, totalReviews: totalReviews),
+              RatingBox(rating: star4, totalReviews: totalReviews),
+              RatingBox(rating: star5, totalReviews: totalReviews),
+            ],
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 1),
+            color: Colors.white.withValues(alpha: 0.5),
+            height: 2,
+            width: double.infinity,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: List.generate(
+              5,
+              (index) => Text(
+                "${index + 1}",
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.5),
+                  fontFamily: "OpenSans",
+                  fontWeight: FontWeight.w400,
+                  fontSize: 8,
+                ),
               ),
             ),
-            color: Colors.white.withValues(alpha: 0.5),
           ),
-          width: 10,
-          height: (star0 / totalReviews) * 100,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-              right: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-            ),
-            color: Colors.white.withValues(alpha: 0.5),
+        ],
+      ),
+    );
+  }
+}
+
+class RatingBox extends StatelessWidget {
+  final int rating;
+  final int totalReviews;
+  const RatingBox({
+    super.key,
+    required this.rating,
+    required this.totalReviews,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border(
+          left: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 0.4,
           ),
-          width: 10,
-          height: (star1 / totalReviews) * 100,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-              right: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-            ),
-            color: Colors.white.withValues(alpha: 0.5),
+          right: BorderSide(
+            color: Theme.of(context).colorScheme.primary,
+            width: 0.4,
           ),
-          width: 10,
-          height: (star2 / totalReviews) * 100,
         ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-              right: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-            ),
-            color: Colors.white.withValues(alpha: 0.5),
-          ),
-          width: 10,
-          height: (star3 / totalReviews) * 100,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-              right: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-            ),
-            color: Colors.white.withValues(alpha: 0.5),
-          ),
-          width: 10,
-          height: (star4 / totalReviews) * 100,
-        ),
-        Container(
-          decoration: BoxDecoration(
-            border: Border(
-              left: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-              right: BorderSide(
-                color: Theme.of(context).colorScheme.primary,
-                width: 0.4,
-              ),
-            ),
-            color: Colors.white.withValues(alpha: 0.5),
-          ),
-          width: 10,
-          height: (star5 / totalReviews) * 100,
-        ),
-      ],
+        color: Colors.white.withValues(alpha: 0.5),
+      ),
+      width: 10,
+      height: (rating / totalReviews) * 100,
     );
   }
 }
